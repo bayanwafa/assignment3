@@ -10,7 +10,7 @@ const Conversion = () => {
   };
 
   return (
-    <div>
+    <div className='Form'>
       <h1>Convert</h1>
       <input type="text" placeholder="Currency Code From" value={currencyFrom} onChange={(e) => setCurrencyFrom(e.target.value)} />
       <input type="text" placeholder="Currency Code To" value={currencyTo} onChange={(e) => setCurrencyTo(e.target.value)} />

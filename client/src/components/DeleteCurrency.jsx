@@ -8,13 +8,13 @@ const DeleteCurrency = () => {
     e.preventDefault();
     try {
       // Fetch the currency details based on the provided currency code
-      const response = await axios.get(`/api/currency/${currencyCode}`);
+      const response = await axios.get(`http://localhost:3003/api/currency/${currencyCode}`);
       const currency = response.data;
 
       // Check if the currency exists
       if (currency) {
         // Delete the currency using its ID
-        await axios.delete(`/api/currency/${currency.id}`);
+        await axios.delete(`http://localhost:3003/api/currency/${currencyCode}`);
         console.log('Currency deleted successfully');
       } else {
         console.error('Currency not found');
@@ -29,7 +29,7 @@ const DeleteCurrency = () => {
 
   
   return (
-    <div>
+    <div className='Form'>
       <h1>Delete Currency</h1>
       <form onSubmit={handleSubmit}>
         <input type="text" placeholder="Currency Code" value={currencyCode} onChange={(e) => setCurrencyCode(e.target.value)} />

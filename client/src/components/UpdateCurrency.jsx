@@ -9,14 +9,14 @@ const UpdateCurrency = () => {
     e.preventDefault();
     try {
       // Fetch the currency details based on the provided currency code
-      const response = await axios.get(`/api/currency/${currencyCode}`);
+      const response = await axios.get(`http://localhost:3003/api/currency/${currencyCode}`);
       const currency = response.data;
 
       // Check if the currency exists
       if (currency) {
         // Update the currency's conversion rate with the new value
         const updatedCurrency = { ...currency, amount: parseFloat(amount) };
-        await axios.put(`/api/currency/${currency.id}`, updatedCurrency);
+        await axios.put(`http://localhost:3003/api/currency/${currency.id}`, updatedCurrency);
         console.log('Currency updated successfully');
       } else {
         console.error('Currency not found');
@@ -31,7 +31,7 @@ const UpdateCurrency = () => {
   };
 
   return (
-    <div>
+    <div className='Form'>
       <h1>Update Currency</h1>
       <form onSubmit={handleSubmit}>
         <input type="text" placeholder="Currency Code" value={currencyCode} onChange={(e) => setCurrencyCode(e.target.value)} />
