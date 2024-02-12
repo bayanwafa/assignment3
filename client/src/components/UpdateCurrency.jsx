@@ -3,39 +3,34 @@ import axios from 'axios';
 
 const UpdateCurrency = () => {
   const [currencyCode, setCurrencyCode] = useState('');
-  const [amount, setAmount] = useState('');
+  const [newConversionRate, setNewConversionRate] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
     try {
-      // Fetch the currency details based on the provided currency code
-      const response = await axios.get(`http://localhost:3003/api/currency/${currencyCode}`);
-      const currency = response.data;
+      // Fetch the currency ID based on the provided currency code
+      const idResponse = await axios.get(`http://localhost:3003/api/currency/${currencyCode}`);
+     const currencyId = idResponse.data.id;
 
-      // Check if the currency exists
-      if (currency) {
-        // Update the currency's conversion rate with the new value
-        const updatedCurrency = { ...currency, amount: parseFloat(amount) };
-        await axios.put(`http://localhost:3003/api/currency/${currency.id}`, updatedCurrency);
-        console.log('Currency updated successfully');
-      } else {
-        console.error('Currency not found');
-      }
-
+      // Send PUT request to backend endpoint with currency ID and new rate
+      const response = await axios.put(`http://localhost:3003/api/currency/${currencyId}/${newConversionRate}`);
+      console.log('Currency updated successfully:', response.data);
       // Reset form fields after successful submission
       setCurrencyCode('');
-      setAmount('');
+      setNewConversionRate('');
     } catch (error) {
       console.error('Error updating currency:', error);
     }
   };
 
+
   return (
-    <div className='Form'>
+    <div className="Form">
       <h1>Update Currency</h1>
       <form onSubmit={handleSubmit}>
-        <input type="text" placeholder="Currency Code" value={currencyCode} onChange={(e) => setCurrencyCode(e.target.value)} />
-        <input type="number" placeholder="Amount" value={amount} onChange={(e) => setAmount(e.target.value)} />
+        <input type="number" placeholder="Currency ID" id="currencyCode" value={currencyCode} onChange={(e) => setCurrencyCode(e.target.value)} />
+        <input type="number" placeholder="Amount" id="newConversionRate" value={newConversionRate} onChange={(e) => setNewConversionRate(e.target.value)} />
         <button type="submit">Update Currency</button>
       </form>
     </div>
@@ -43,3 +38,6 @@ const UpdateCurrency = () => {
 };
 
 export default UpdateCurrency;
+
+
+

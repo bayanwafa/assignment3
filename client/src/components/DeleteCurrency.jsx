@@ -14,7 +14,7 @@ const DeleteCurrency = () => {
       // Check if the currency exists
       if (currency) {
         // Delete the currency using its ID
-        await axios.delete(`http://localhost:3003/api/currency/${currencyCode}`);
+        await axios.delete(`http://localhost:3003/api/currency/${currency.id}`);
         console.log('Currency deleted successfully');
       } else {
         console.error('Currency not found');
@@ -32,7 +32,7 @@ const DeleteCurrency = () => {
     <div className='Form'>
       <h1>Delete Currency</h1>
       <form onSubmit={handleSubmit}>
-        <input type="text" placeholder="Currency Code" value={currencyCode} onChange={(e) => setCurrencyCode(e.target.value)} />
+        <input type="number" placeholder="Currency ID" value={currencyCode} onChange={(e) => setCurrencyCode(e.target.value)} />
         <button type="submit">Delete Currency</button>
       </form>
     </div>
